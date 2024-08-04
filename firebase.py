@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Load Firebase credentials from environment variables
 cred = credentials.Certificate({
     "type": os.getenv('FIREBASE_TYPE'),
     "project_id": os.getenv('FIREBASE_PROJECT_ID'),
