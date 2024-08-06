@@ -1,106 +1,122 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fdjango&demo-title=Django%20%2B%20Vercel&demo-description=Use%20Django%204%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fdjango-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994241/random/django.png)
+# Society Management System
 
-# Django + Vercel
+## Overview
 
-This example shows how to use Django 4 on Vercel with Serverless Functions using the [Python Runtime](https://vercel.com/docs/concepts/functions/serverless-functions/runtimes/python).
+The Society Management System is a Django-based web application designed to manage transactions and user information for a society. It utilizes Firebase for user authentication and data storage.
 
-## Demo
+## Features
 
-https://django-template.vercel.app/
+- Admin dashboard to manage transactions and view user data
+- User management with the ability to toggle active status and update pending amounts
+- Transaction logging with pagination
+- Firebase integration for user authentication and data storage
 
-## How it Works
+## Installation
 
-Our Django application, `example` is configured as an installed application in `api/settings.py`:
+1. **Clone the repository:**
 
-```python
-# api/settings.py
-INSTALLED_APPS = [
-    # ...
-    'example',
-]
-```
+    ```bash
+    git clone https://github.com/yourusername/society-management-system.git
+    cd society-management-system
+    ```
 
-We allow "\*.vercel.app" subdomains in `ALLOWED_HOSTS`, in addition to 127.0.0.1:
+2. **Set up a virtual environment:**
 
-```python
-# api/settings.py
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
-```
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
 
-The `wsgi` module must use a public variable named `app` to expose the WSGI application:
+3. **Install dependencies:**
 
-```python
-# api/wsgi.py
-app = get_wsgi_application()
-```
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-The corresponding `WSGI_APPLICATION` setting is configured to use the `app` variable from the `api.wsgi` module:
+4. **Set up Firebase:**
 
-```python
-# api/settings.py
-WSGI_APPLICATION = 'api.wsgi.app'
-```
+    - Create a Firebase project and obtain your service account key JSON file.
+    - Set the Firebase credentials as an environment variable:
 
-There is a single view which renders the current time in `example/views.py`:
+      ```bash
+      export GOOGLE_CLOUD_SERVICE_ACCOUNT='{"type":"service_account","project_id":"your-project-id", ...}'
+      ```
 
-```python
-# example/views.py
-from datetime import datetime
+5. **Apply database migrations:**
 
-from django.http import HttpResponse
+    ```bash
+    python manage.py migrate
+    ```
 
+6. **Create a superuser:**
 
-def index(request):
-    now = datetime.now()
-    html = f'''
-    <html>
-        <body>
-            <h1>Hello from Vercel!</h1>
-            <p>The current time is { now }.</p>
-        </body>
-    </html>
-    '''
-    return HttpResponse(html)
-```
+    ```bash
+    python manage.py createsuperuser
+    ```
 
-This view is exposed a URL through `example/urls.py`:
+7. **Run the development server:**
 
-```python
-# example/urls.py
-from django.urls import path
+    ```bash
+    python manage.py runserver
+    ```
 
-from example.views import index
+8. **Visit `http://127.0.0.1:8000` in your browser to access the application.**
 
+## Usage
 
-urlpatterns = [
-    path('', index),
-]
-```
+- **Admin Dashboard:**
+  - Manage transactions.
+  - View and update user data.
 
-Finally, it's made accessible to the Django server inside `api/urls.py`:
+- **User Management:**
+  - Admins can toggle user activation status and update pending amounts.
 
-```python
-# api/urls.py
-from django.urls import path, include
+- **Transaction Log:**
+  - View recent transactions with pagination.
 
-urlpatterns = [
-    ...
-    path('', include('example.urls')),
-]
-```
+## Deployment
 
-This example uses the Web Server Gateway Interface (WSGI) with Django to enable handling requests on Vercel with Serverless Functions.
+To deploy this project on Vercel:
 
-## Running Locally
+1. **Install Vercel CLI:**
 
-```bash
-python manage.py runserver
-```
+    ```bash
+    npm install -g vercel
+    ```
 
-Your Django application is now available at `http://localhost:8000`.
+2. **Log in to Vercel:**
 
-## One-Click Deploy
+    ```bash
+    vercel login
+    ```
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=vercel-examples):
+3. **Deploy the project:**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fexamples%2Ftree%2Fmain%2Fpython%2Fdjango&demo-title=Django%20%2B%20Vercel&demo-description=Use%20Django%204%20on%20Vercel%20with%20Serverless%20Functions%20using%20the%20Python%20Runtime.&demo-url=https%3A%2F%2Fdjango-template.vercel.app%2F&demo-image=https://assets.vercel.com/image/upload/v1669994241/random/django.png)
+    ```bash
+    vercel --prod
+    ```
+
+4. **Configure environment variables on Vercel:**
+   - Add the `GOOGLE_CLOUD_SERVICE_ACCOUNT` environment variable with the JSON credentials.
+
+## Notes
+
+- Ensure sensitive files, such as the Firebase service account key, are not pushed to the repository.
+- Use GitHub Secrets or similar services for managing sensitive information.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Firebase for authentication and data storage.
+- Django for the web framework.
