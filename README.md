@@ -1,5 +1,13 @@
 # Society Management System
 
+<div align="center">
+If you like my work, consider buying me a coffee! ☕️
+<a href="https://www.buymeacoffee.com/bogusdeck" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" width="150" />
+</a>
+</div>
+
+
 ## Overview
 
 The Society Management System is a Django-based web application designed to manage transactions and user information for a society. It utilizes Firebase for user authentication and data storage.
