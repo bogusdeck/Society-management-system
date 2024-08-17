@@ -1,7 +1,7 @@
 # Society Management System
 
 <div align="center">
-If you like my work, consider buying me a coffee! ☕️
+<p>If you like my work, consider buying me a coffee! ☕️</p>
 </div>
 
 
